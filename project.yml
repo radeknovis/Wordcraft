@@ -1,0 +1,95 @@
+name: Wordcraft
+options:
+  bundleIdPrefix: com.wordcraft
+  deploymentTarget:
+    iOS: "17.0"
+  generateEmptyDirectories: true
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    MARKETING_VERSION: 1.0
+    CURRENT_PROJECT_VERSION: 1
+packages:
+  mlx-swift-lm:
+    url: https://github.com/ml-explore/mlx-swift-lm.git
+    from: 3.31.3
+  swift-huggingface:
+    url: https://github.com/huggingface/swift-huggingface.git
+    from: 0.9.0
+  swift-transformers:
+    url: https://github.com/huggingface/swift-transformers.git
+    from: 1.3.0
+targets:
+  Wordcraft:
+    type: application
+    platform: iOS
+    sources:
+      - path: Wordcraft/App
+      - path: WordcraftShared
+    resources:
+      - path: Wordcraft/Resources/LaunchScreen.storyboard
+    info:
+      path: Wordcraft/Resources/Info.plist
+      properties:
+        UILaunchStoryboardName: LaunchScreen
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wordcraft.local
+        CODE_SIGN_ENTITLEMENTS: Wordcraft/Resources/Wordcraft.entitlements
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+    dependencies:
+      - target: WordcraftKeyboard
+        embed: true
+      - package: mlx-swift-lm
+        product: MLXHuggingFace
+      - package: mlx-swift-lm
+        product: MLXLLM
+      - package: mlx-swift-lm
+        product: MLXLMCommon
+      - package: swift-huggingface
+        product: HuggingFace
+      - package: swift-transformers
+        product: Tokenizers
+  WordcraftKeyboard:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: WordcraftKeyboard
+      - path: WordcraftShared
+    info:
+      path: WordcraftKeyboard/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Wordcraft Keyboard
+        NSExtension:
+          NSExtensionAttributes:
+            IsASCIICapable: true
+            PrimaryLanguage: en-US
+            RequestsOpenAccess: false
+          NSExtensionPointIdentifier: com.apple.keyboard-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wordcraft.local.keyboard
+        CODE_SIGN_ENTITLEMENTS: WordcraftKeyboard/Resources/WordcraftKeyboard.entitlements
+        SKIP_INSTALL: true
+    dependencies:
+      - package: mlx-swift-lm
+        product: MLXHuggingFace
+      - package: mlx-swift-lm
+        product: MLXLLM
+      - package: mlx-swift-lm
+        product: MLXLMCommon
+      - package: swift-huggingface
+        product: HuggingFace
+      - package: swift-transformers
+        product: Tokenizers
+schemes:
+  Wordcraft:
+    build:
+      targets:
+        Wordcraft: all
+        WordcraftKeyboard: all
+    run:
+      config: Debug

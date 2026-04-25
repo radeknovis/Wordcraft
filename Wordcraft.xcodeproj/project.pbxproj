@@ -1,0 +1,632 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E2A9AB52CC3354BA3F5B968 /* MLXLocalRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8B8865EF9F71934BE2875D /* MLXLocalRuntime.swift */; };
+		0EA599DA30BBA190985D58AF /* SuggestionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA25E0581AEC2AB8E2D9688 /* SuggestionResult.swift */; };
+		1750678A73384D835C2CFA1A /* SuggestionMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013017E06BBB2F7336B83BDB /* SuggestionMetrics.swift */; };
+		1C92D33C146326F872FB10DD /* SuggestionBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E096A967888F9A63367243A /* SuggestionBarView.swift */; };
+		22AAF0EBC12AD9673A6F6616 /* SuggestionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA25E0581AEC2AB8E2D9688 /* SuggestionResult.swift */; };
+		33D894DC0D70C325BC9A7402 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 38E236561A7FDB59750C6144 /* MLXLLM */; };
+		3DBD59C7F27CAE1F7E459C38 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BDC78F76A3DD4792D61E28AE /* MLXLMCommon */; };
+		442502C73F4BDB1709B054E1 /* MLXLocalRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8B8865EF9F71934BE2875D /* MLXLocalRuntime.swift */; };
+		53EF685684F3943B14F88319 /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = CD45B40D7DBBC441B60BC52F /* HuggingFace */; };
+		5789961B5A3AA442D2561B47 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 1314DC72180C894D12A24D26 /* MLXLLM */; };
+		5C9B444218B2CFF2D96BB59D /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C698A20809AFDAB8FCD53 /* DemoView.swift */; };
+		61854308DCBC76FF2C43FC85 /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = A9845C9449B2FE06C2BCA815 /* MLXHuggingFace */; };
+		62A22D3D808DEC2FAC6CE5D6 /* LocalLLMSuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */; };
+		66047B793B2779BB484CEB62 /* WordcraftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1197214E792DB7E71A67C /* WordcraftApp.swift */; };
+		6E7B9BC547614EDED149B80A /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 01DFF4DBA37141A500E794A7 /* Tokenizers */; };
+		6FFC90EDEC036098E216DA7D /* WordcraftKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		79A20BFB2F77FEA484D5A597 /* SuggestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */; };
+		8143699FDC04057C09F7F6E9 /* SuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3817DF383C6801906F22E /* SuggestionEngine.swift */; };
+		885D1B15198214E44C56650B /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51E256E5A4E48B559F3AEB /* KeyboardLayout.swift */; };
+		8DF882233865CE4BCCFA7C8A /* KeyboardSetupInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD8C2BD02474FE6FBC5E1D1 /* KeyboardSetupInstructionsView.swift */; };
+		B1B48A75A7389C5619AEEA64 /* LocalLLMSuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */; };
+		B73DB2D15C529D19152734FD /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 9934B1FC857BC09FB39FCBB4 /* HuggingFace */; };
+		BB6A32CEB6E5C3C9B4B0C5DA /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D138F84ADFF0130F3AC322CA /* KeyboardView.swift */; };
+		C15D32B7CDB8BA9B6F7099DD /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 42FE07B5772E1A4AD79AD5C8 /* MLXHuggingFace */; };
+		C4BD2B5FFB6C969DF9F2B100 /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 00D2538E8165ABB846248F7B /* Tokenizers */; };
+		CCFEF967C54F03D56D58D8FB /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BC1C05FE6B5659FB8E164 /* KeyboardController.swift */; };
+		D1281E0D604C571974AF6AAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700AB63FB87447DE2C6CC04E /* ContentView.swift */; };
+		D7B16E7A378AE0BF274F1BC4 /* KeyboardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1C814113121941CA5D68C3 /* KeyboardState.swift */; };
+		D854BB0E768B34851E623E98 /* SuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3817DF383C6801906F22E /* SuggestionEngine.swift */; };
+		E310F20265A65795BEB70391 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A374D17B90C9A6BC7408A /* KeyboardViewController.swift */; };
+		E5BDEB9AAEC968D05F8F0E21 /* SuggestionMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013017E06BBB2F7336B83BDB /* SuggestionMetrics.swift */; };
+		F0D2A3ECEB4AFDCC74F4E63C /* SuggestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */; };
+		FADE8880AE554BBF57F9F1B8 /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE93A59FA6247EE6A3C4D28 /* KeyboardKey.swift */; };
+		FC9AE4916478D547FBF71876 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5E7669DDD181C462227532 /* MLXLMCommon */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E33194944D67D7C7185ADF7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 189AFFFA70387A93A593731B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BE514784B9952304E8AC874;
+			remoteInfo = WordcraftKeyboard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8C3D1A9CE4267009D649E420 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6FFC90EDEC036098E216DA7D /* WordcraftKeyboard.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		013017E06BBB2F7336B83BDB /* SuggestionMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionMetrics.swift; sourceTree = "<group>"; };
+		1E096A967888F9A63367243A /* SuggestionBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionBarView.swift; sourceTree = "<group>"; };
+		1EE93A59FA6247EE6A3C4D28 /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
+		2044CAA21CB5AAB50D397FAB /* Wordcraft.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Wordcraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionRequest.swift; sourceTree = "<group>"; };
+		4C8BC1C05FE6B5659FB8E164 /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
+		4D0A374D17B90C9A6BC7408A /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		5A51E256E5A4E48B559F3AEB /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
+		6AD8C2BD02474FE6FBC5E1D1 /* KeyboardSetupInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSetupInstructionsView.swift; sourceTree = "<group>"; };
+		6CD1197214E792DB7E71A67C /* WordcraftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordcraftApp.swift; sourceTree = "<group>"; };
+		700AB63FB87447DE2C6CC04E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7BA25E0581AEC2AB8E2D9688 /* SuggestionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionResult.swift; sourceTree = "<group>"; };
+		969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLLMSuggestionEngine.swift; sourceTree = "<group>"; };
+		9D9C698A20809AFDAB8FCD53 /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
+		AB8B8865EF9F71934BE2875D /* MLXLocalRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXLocalRuntime.swift; sourceTree = "<group>"; };
+		AC6D5A82B4BC28D4C583BA19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BE1C814113121941CA5D68C3 /* KeyboardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardState.swift; sourceTree = "<group>"; };
+		BFD3817DF383C6801906F22E /* SuggestionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionEngine.swift; sourceTree = "<group>"; };
+		D138F84ADFF0130F3AC322CA /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		EC675D4ECE8BCBF5BAE574F6 /* WordcraftKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WordcraftKeyboard.entitlements; sourceTree = "<group>"; };
+		F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WordcraftKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5958364229D5AF34D3FAAE08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61854308DCBC76FF2C43FC85 /* MLXHuggingFace in Frameworks */,
+				5789961B5A3AA442D2561B47 /* MLXLLM in Frameworks */,
+				3DBD59C7F27CAE1F7E459C38 /* MLXLMCommon in Frameworks */,
+				53EF685684F3943B14F88319 /* HuggingFace in Frameworks */,
+				6E7B9BC547614EDED149B80A /* Tokenizers in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8A2CD91DA35AAFAE097388B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15D32B7CDB8BA9B6F7099DD /* MLXHuggingFace in Frameworks */,
+				33D894DC0D70C325BC9A7402 /* MLXLLM in Frameworks */,
+				FC9AE4916478D547FBF71876 /* MLXLMCommon in Frameworks */,
+				B73DB2D15C529D19152734FD /* HuggingFace in Frameworks */,
+				C4BD2B5FFB6C969DF9F2B100 /* Tokenizers in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6E2B2B10C5A2EEAC1C766D71 /* WordcraftShared */ = {
+			isa = PBXGroup;
+			children = (
+				969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */,
+				AB8B8865EF9F71934BE2875D /* MLXLocalRuntime.swift */,
+				BFD3817DF383C6801906F22E /* SuggestionEngine.swift */,
+				013017E06BBB2F7336B83BDB /* SuggestionMetrics.swift */,
+				2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */,
+				7BA25E0581AEC2AB8E2D9688 /* SuggestionResult.swift */,
+			);
+			path = WordcraftShared;
+			sourceTree = "<group>";
+		};
+		996053993121B531E6E588B3 = {
+			isa = PBXGroup;
+			children = (
+				D2F8800C8EE52D68BF0F4E57 /* App */,
+				FE2C4F315ADFB755B4BA39BA /* WordcraftKeyboard */,
+				6E2B2B10C5A2EEAC1C766D71 /* WordcraftShared */,
+				E55F296C295A8D1D5F786B72 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D2F8800C8EE52D68BF0F4E57 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				700AB63FB87447DE2C6CC04E /* ContentView.swift */,
+				9D9C698A20809AFDAB8FCD53 /* DemoView.swift */,
+				6AD8C2BD02474FE6FBC5E1D1 /* KeyboardSetupInstructionsView.swift */,
+				6CD1197214E792DB7E71A67C /* WordcraftApp.swift */,
+			);
+			name = App;
+			path = Wordcraft/App;
+			sourceTree = "<group>";
+		};
+		D9762C65A12BFF5BD405D9E6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AC6D5A82B4BC28D4C583BA19 /* Info.plist */,
+				EC675D4ECE8BCBF5BAE574F6 /* WordcraftKeyboard.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E55F296C295A8D1D5F786B72 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2044CAA21CB5AAB50D397FAB /* Wordcraft.app */,
+				F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FE2C4F315ADFB755B4BA39BA /* WordcraftKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4C8BC1C05FE6B5659FB8E164 /* KeyboardController.swift */,
+				1EE93A59FA6247EE6A3C4D28 /* KeyboardKey.swift */,
+				5A51E256E5A4E48B559F3AEB /* KeyboardLayout.swift */,
+				BE1C814113121941CA5D68C3 /* KeyboardState.swift */,
+				D138F84ADFF0130F3AC322CA /* KeyboardView.swift */,
+				4D0A374D17B90C9A6BC7408A /* KeyboardViewController.swift */,
+				1E096A967888F9A63367243A /* SuggestionBarView.swift */,
+				D9762C65A12BFF5BD405D9E6 /* Resources */,
+			);
+			path = WordcraftKeyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1BE514784B9952304E8AC874 /* WordcraftKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4A83EF96573D5990306CD1C /* Build configuration list for PBXNativeTarget "WordcraftKeyboard" */;
+			buildPhases = (
+				23870859F98D28F21F12EF47 /* Sources */,
+				C8A2CD91DA35AAFAE097388B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordcraftKeyboard;
+			packageProductDependencies = (
+				42FE07B5772E1A4AD79AD5C8 /* MLXHuggingFace */,
+				38E236561A7FDB59750C6144 /* MLXLLM */,
+				0A5E7669DDD181C462227532 /* MLXLMCommon */,
+				9934B1FC857BC09FB39FCBB4 /* HuggingFace */,
+				00D2538E8165ABB846248F7B /* Tokenizers */,
+			);
+			productName = WordcraftKeyboard;
+			productReference = F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		37EEAA9A0C19D1BFBEF2153D /* Wordcraft */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5013BD555A4FFC4354A4F3D /* Build configuration list for PBXNativeTarget "Wordcraft" */;
+			buildPhases = (
+				4003A066BA515589C27F470C /* Sources */,
+				5958364229D5AF34D3FAAE08 /* Frameworks */,
+				8C3D1A9CE4267009D649E420 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7202EAEE39732FA515F738DA /* PBXTargetDependency */,
+			);
+			name = Wordcraft;
+			packageProductDependencies = (
+				A9845C9449B2FE06C2BCA815 /* MLXHuggingFace */,
+				1314DC72180C894D12A24D26 /* MLXLLM */,
+				BDC78F76A3DD4792D61E28AE /* MLXLMCommon */,
+				CD45B40D7DBBC441B60BC52F /* HuggingFace */,
+				01DFF4DBA37141A500E794A7 /* Tokenizers */,
+			);
+			productName = Wordcraft;
+			productReference = 2044CAA21CB5AAB50D397FAB /* Wordcraft.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		189AFFFA70387A93A593731B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 3E44E7CB323B858E97071156 /* Build configuration list for PBXProject "Wordcraft" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 996053993121B531E6E588B3;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
+				FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
+				5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E55F296C295A8D1D5F786B72 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37EEAA9A0C19D1BFBEF2153D /* Wordcraft */,
+				1BE514784B9952304E8AC874 /* WordcraftKeyboard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23870859F98D28F21F12EF47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFEF967C54F03D56D58D8FB /* KeyboardController.swift in Sources */,
+				FADE8880AE554BBF57F9F1B8 /* KeyboardKey.swift in Sources */,
+				885D1B15198214E44C56650B /* KeyboardLayout.swift in Sources */,
+				D7B16E7A378AE0BF274F1BC4 /* KeyboardState.swift in Sources */,
+				BB6A32CEB6E5C3C9B4B0C5DA /* KeyboardView.swift in Sources */,
+				E310F20265A65795BEB70391 /* KeyboardViewController.swift in Sources */,
+				B1B48A75A7389C5619AEEA64 /* LocalLLMSuggestionEngine.swift in Sources */,
+				442502C73F4BDB1709B054E1 /* MLXLocalRuntime.swift in Sources */,
+				1C92D33C146326F872FB10DD /* SuggestionBarView.swift in Sources */,
+				D854BB0E768B34851E623E98 /* SuggestionEngine.swift in Sources */,
+				E5BDEB9AAEC968D05F8F0E21 /* SuggestionMetrics.swift in Sources */,
+				F0D2A3ECEB4AFDCC74F4E63C /* SuggestionRequest.swift in Sources */,
+				0EA599DA30BBA190985D58AF /* SuggestionResult.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4003A066BA515589C27F470C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1281E0D604C571974AF6AAB /* ContentView.swift in Sources */,
+				5C9B444218B2CFF2D96BB59D /* DemoView.swift in Sources */,
+				8DF882233865CE4BCCFA7C8A /* KeyboardSetupInstructionsView.swift in Sources */,
+				62A22D3D808DEC2FAC6CE5D6 /* LocalLLMSuggestionEngine.swift in Sources */,
+				0E2A9AB52CC3354BA3F5B968 /* MLXLocalRuntime.swift in Sources */,
+				8143699FDC04057C09F7F6E9 /* SuggestionEngine.swift in Sources */,
+				1750678A73384D835C2CFA1A /* SuggestionMetrics.swift in Sources */,
+				79A20BFB2F77FEA484D5A597 /* SuggestionRequest.swift in Sources */,
+				22AAF0EBC12AD9673A6F6616 /* SuggestionResult.swift in Sources */,
+				66047B793B2779BB484CEB62 /* WordcraftApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7202EAEE39732FA515F738DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BE514784B9952304E8AC874 /* WordcraftKeyboard */;
+			targetProxy = E33194944D67D7C7185ADF7D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		586914EA2702664973CCF23C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Wordcraft/Resources/Wordcraft.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Wordcraft/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local;
+				SDKROOT = iphoneos;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5A8E38D1659C853B215B97FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Wordcraft/Resources/Wordcraft.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Wordcraft/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local;
+				SDKROOT = iphoneos;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		72AE6FEBF428F8AE1EF490DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8F4706B18F421BB1701C15EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = WordcraftKeyboard/Resources/WordcraftKeyboard.entitlements;
+				INFOPLIST_FILE = WordcraftKeyboard/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local.keyboard;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9DF858A7D4DD14846840728A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F659487C4AEFC0A1E4715272 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = WordcraftKeyboard/Resources/WordcraftKeyboard.entitlements;
+				INFOPLIST_FILE = WordcraftKeyboard/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local.keyboard;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3E44E7CB323B858E97071156 /* Build configuration list for PBXProject "Wordcraft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72AE6FEBF428F8AE1EF490DE /* Debug */,
+				9DF858A7D4DD14846840728A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A5013BD555A4FFC4354A4F3D /* Build configuration list for PBXNativeTarget "Wordcraft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A8E38D1659C853B215B97FE /* Debug */,
+				586914EA2702664973CCF23C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B4A83EF96573D5990306CD1C /* Build configuration list for PBXNativeTarget "WordcraftKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F4706B18F421BB1701C15EA /* Debug */,
+				F659487C4AEFC0A1E4715272 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.31.3;
+			};
+		};
+		5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-transformers.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
+		FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-huggingface.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		00D2538E8165ABB846248F7B /* Tokenizers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Tokenizers;
+		};
+		01DFF4DBA37141A500E794A7 /* Tokenizers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Tokenizers;
+		};
+		0A5E7669DDD181C462227532 /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLMCommon;
+		};
+		1314DC72180C894D12A24D26 /* MLXLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLLM;
+		};
+		38E236561A7FDB59750C6144 /* MLXLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLLM;
+		};
+		42FE07B5772E1A4AD79AD5C8 /* MLXHuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXHuggingFace;
+		};
+		9934B1FC857BC09FB39FCBB4 /* HuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
+			productName = HuggingFace;
+		};
+		A9845C9449B2FE06C2BCA815 /* MLXHuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXHuggingFace;
+		};
+		BDC78F76A3DD4792D61E28AE /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLMCommon;
+		};
+		CD45B40D7DBBC441B60BC52F /* HuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
+			productName = HuggingFace;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 189AFFFA70387A93A593731B /* Project object */;
+}
