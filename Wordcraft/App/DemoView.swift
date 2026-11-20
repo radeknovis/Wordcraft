@@ -37,6 +37,7 @@ struct DemoView: View {
                             Text(backend.displayName).tag(backend.rawValue)
                         }
                     }
+                    .accessibilityIdentifier("backendPicker")
 
                     Text(backendDescription)
                         .font(.footnote)

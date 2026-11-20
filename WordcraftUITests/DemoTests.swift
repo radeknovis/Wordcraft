@@ -6,8 +6,7 @@ final class DemoTests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        let picker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Backend,")).first
-        picker.tap()
+        app.buttons["backendPicker"].tap()
         app.buttons["Built-in demo"].tap()
         app.buttons["Generate suggestions"].tap()
 
