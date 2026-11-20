@@ -1,5 +1,4 @@
 import SwiftUI
-import WordcraftKeyboard
 
 struct DemoView: View {
 
@@ -7,7 +6,8 @@ struct DemoView: View {
         WordcraftModelPreferences.selectedBackendKey,
         store: UserDefaults(suiteName: WordcraftModelPreferences.appGroupIdentifier)
     )
-    private var selectedBackendRawValue = LocalModelBackend.foundationModels.rawValue
+    private var selectedBackendRawValue = LocalModelBackend.sample.rawValue
+    #if WORDCRAFT_MLX
     @AppStorage(
         WordcraftModelPreferences.mlxRepositoryKey,
         store: UserDefaults(suiteName: WordcraftModelPreferences.appGroupIdentifier)
@@ -18,34 +18,35 @@ struct DemoView: View {
         store: UserDefaults(suiteName: WordcraftModelPreferences.appGroupIdentifier)
     )
     private var mlxLocalDirectoryPath = ""
-    @State private var text: String = ""
-    @State private var errorMessage: String?
-    @State private var engine = LocalLLMSuggestionEngine()
     @State private var modelStatusMessage: String?
     @State private var downloadProgress: Double?
-    @State private var downloadCompletedBytes: Int64 = 0
-    @State private var downloadTotalBytes: Int64 = 0
-    @State private var downloadStartDate: Date?
-    @State private var estimatedRemainingTime: TimeInterval?
     @State private var isLoadingModel = false
+    #endif
+    @State private var text = "i "
+    @State private var engine = LocalLLMSuggestionEngine()
+    @State private var isGenerating = false
+    @FocusState private var editingText: Bool
     @State private var suggestionResult: SuggestionResult?
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("Model Backend") {
-                    Picker("Backend", selection: $selectedBackendRawValue) {
+                    Picker("Backend", selection: Binding(get: { selectedBackend.rawValue }, set: { selectedBackendRawValue = $0 })) {
                         ForEach(LocalModelBackend.allCases) { backend in
                             Text(backend.displayName).tag(backend.rawValue)
                         }
                     }
+                    .accessibilityIdentifier("backendPicker")
 
-                    Text(selectedBackend.supportsOnDeviceInference ? "Uses on-device Foundation Models when available." : "Selection saved now. Requests use mock fallback until this runtime is integrated.")
+                    Text(backendDescription)
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
+                .disabled(isBusy)
 
-                if selectedBackend.usesMLXRuntime {
+                #if WORDCRAFT_MLX
+                if selectedBackend == .mlx {
                     Section("MLX Model Settings") {
                         TextField("Repository ID", text: $mlxRepositoryID)
                             .textInputAutocapitalization(.never)
@@ -57,30 +58,24 @@ struct DemoView: View {
 
                         Button(isLoadingModel ? "Loading Model..." : "Download / Load Model") {
                             isLoadingModel = true
-                            downloadStartDate = Date()
                             downloadProgress = 0
-                            downloadCompletedBytes = 0
-                            downloadTotalBytes = 0
-                            estimatedRemainingTime = nil
                             Task {
-                                let status = await engine.preloadSelectedBackend { progress in
+                                let status = await engine.prepareMLXModel { progress in
                                     Task { @MainActor in
-                                        updateDownloadProgress(progress)
+                                        downloadProgress = min(1, max(0, progress.fractionCompleted))
                                     }
                                 }
-                                await MainActor.run {
-                                    modelStatusMessage = status
-                                    isLoadingModel = false
-                                }
+                                modelStatusMessage = status
+                                isLoadingModel = false
                             }
                         }
                         .disabled(isLoadingModel)
 
-                        Text("Leave both fields empty to use the built-in Gemma 4 default. Set a repository ID to fetch from Hugging Face, or set a local folder to load files already on disk.")
+                        Text("Leave both fields empty for Gemma 4 E2B, or enter a compatible Hugging Face repository ID. A local folder takes precedence.")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
 
-                        Text("Download in the host app first. The keyboard extension can reuse the prepared selection, but it should not be the first place that fetches model files.")
+                        Text("Downloads go into the shared App Group. The keyboard reads cached files and uses built-in suggestions if the model is unavailable.")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
 
@@ -89,44 +84,30 @@ struct DemoView: View {
                                 .font(.footnote)
                         }
 
-                        if isLoadingModel || downloadTotalBytes > 0 || downloadCompletedBytes > 0 {
-                            VStack(alignment: .leading, spacing: 8) {
-                                ProgressView(value: downloadProgress ?? 0)
-
-                                Text(downloadSummary)
-                                    .font(.footnote.monospacedDigit())
-                                    .foregroundStyle(.secondary)
-
-                                if let estimatedRemainingTime {
-                                    Text("ETA \(formatDuration(estimatedRemainingTime))")
-                                        .font(.footnote.monospacedDigit())
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
+                        if isLoadingModel {
+                            ProgressView(value: downloadProgress)
                         }
                     }
+                    .disabled(isBusy)
                 }
+                #endif
 
                 Section("Try Suggestions") {
-                    TextField("Test textfield", text: $text)
+                    TextField("Text before the cursor", text: $text)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .focused($editingText)
+                        .disabled(isBusy)
 
-                    Button("Generate suggestions") {
+                    Button(isGenerating ? "Generating…" : "Generate suggestions") {
+                        editingText = false
+                        isGenerating = true
                         Task {
-                            do {
-                                suggestionResult = try await engine.suggestions(for: .init(context: text))
-                                errorMessage = nil
-                            } catch {
-                                errorMessage = error.localizedDescription
-                            }
+                            defer { isGenerating = false }
+                            suggestionResult = try? await engine.suggestions(for: .init(context: text))
                         }
                     }
-                }
-
-                if let errorMessage {
-                    Section("Error") {
-                        Text(errorMessage)
-                            .foregroundStyle(.red)
-                    }
+                    .disabled(isBusy || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
 
                 if let suggestionResult {
@@ -135,66 +116,52 @@ struct DemoView: View {
                             Text(suggestion)
                         }
 
-                        Text(suggestionResult.metrics.summary)
+                        let metrics = suggestionResult.metrics
+                        Text(metrics.usedFallback ? "Source: Built-in fallback" : "Source: \(metrics.modelName ?? metrics.backend.displayName)")
+                            .font(.footnote)
+                        Text("Latency: \(metrics.latencyMilliseconds, specifier: "%.1f") ms")
+                            .font(.footnote.monospacedDigit())
                     }
                 }
             }
-            .navigationTitle("Demo")
+            .navigationTitle("Wordcraft Demo")
+            .onChange(of: text) { suggestionResult = nil }
+            #if WORDCRAFT_MLX
+            .onChange(of: MLXModelSelection(repositoryID: mlxRepositoryID, localDirectoryPath: mlxLocalDirectoryPath)) {
+                suggestionResult = nil
+                modelStatusMessage = nil
+                downloadProgress = nil
+            }
+            #endif
+            .onChange(of: selectedBackendRawValue) {
+                suggestionResult = nil
+                #if WORDCRAFT_MLX
+                modelStatusMessage = nil
+                #endif
+            }
         }
     }
 
     private var selectedBackend: LocalModelBackend {
-        LocalModelBackend(rawValue: selectedBackendRawValue) ?? .foundationModels
+        LocalModelBackend(rawValue: selectedBackendRawValue) ?? .sample
     }
 
-    private var downloadSummary: String {
-        let percent = Int((downloadProgress ?? 0) * 100)
-        let completed = ByteCountFormatter.string(fromByteCount: downloadCompletedBytes, countStyle: .file)
-        let total = downloadTotalBytes > 0
-            ? ByteCountFormatter.string(fromByteCount: downloadTotalBytes, countStyle: .file)
-            : "unknown"
-        return "\(percent)% • \(completed) / \(total)"
+    private var backendDescription: String {
+        switch selectedBackend {
+        case .sample: return "Try “i ” for three repeatable next words."
+        case .foundationModels: return "Uses Apple Intelligence when available. Each result shows its source."
+        #if WORDCRAFT_MLX
+        case .mlx: return "Prepare the model on a physical device before generating suggestions."
+        #endif
+        }
     }
 
-    @MainActor
-    private func updateDownloadProgress(_ progress: Progress) {
-        downloadProgress = progress.fractionCompleted.isFinite ? progress.fractionCompleted : nil
-        downloadCompletedBytes = progress.completedUnitCount
-        downloadTotalBytes = progress.totalUnitCount
-
-        guard
-            let start = downloadStartDate,
-            progress.completedUnitCount > 0,
-            progress.totalUnitCount > progress.completedUnitCount
-        else {
-            estimatedRemainingTime = nil
-            return
-        }
-
-        let elapsed = Date().timeIntervalSince(start)
-        guard elapsed > 0 else {
-            estimatedRemainingTime = nil
-            return
-        }
-
-        let bytesPerSecond = Double(progress.completedUnitCount) / elapsed
-        guard bytesPerSecond > 0 else {
-            estimatedRemainingTime = nil
-            return
-        }
-
-        let remainingBytes = Double(progress.totalUnitCount - progress.completedUnitCount)
-        estimatedRemainingTime = remainingBytes / bytesPerSecond
-    }
-
-    private func formatDuration(_ interval: TimeInterval) -> String {
-        let totalSeconds = max(0, Int(interval.rounded()))
-        let minutes = totalSeconds / 60
-        let seconds = totalSeconds % 60
-        if minutes > 0 {
-            return "\(minutes)m \(seconds)s"
-        }
-        return "\(seconds)s"
+    private var isBusy: Bool {
+        #if WORDCRAFT_MLX
+        isGenerating || isLoadingModel
+        #else
+        isGenerating
+        #endif
     }
 }
 

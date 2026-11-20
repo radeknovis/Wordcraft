@@ -1,22 +1,19 @@
+#if WORDCRAFT_MLX
 import Foundation
 import MLXHuggingFace
 import MLXLLM
 import MLXLMCommon
 import HuggingFace
-
 import Tokenizers
 
 enum MLXRuntimeStatus: Sendable, Equatable {
-    case notConfigured
     case ready(modelDescription: String)
     case failed(reason: String)
 
     var summary: String {
         switch self {
-        case .notConfigured:
-            return "MLX runtime linked. Model selection still needed."
         case .ready(let modelDescription):
-            return "MLX runtime linked. Pending load for \(modelDescription)."
+            return "Loaded \(modelDescription)."
         case .failed(let reason):
             return "MLX runtime unavailable: \(reason)"
         }
@@ -24,76 +21,57 @@ enum MLXRuntimeStatus: Sendable, Equatable {
 }
 
 actor MLXLocalRuntime {
-    private var preparedBackend: LocalModelBackend?
     private var preparedModelSelection: MLXModelSelection?
     private var modelContainer: ModelContainer?
-    private var lastStatus: MLXRuntimeStatus = .notConfigured
+    private var isPreparing = false
 
     func prepareIfNeeded(
-        for backend: LocalModelBackend,
+        allowDownload: Bool,
         progressHandler: (@Sendable (Progress) -> Void)? = nil
     ) async -> MLXRuntimeStatus {
-        guard backend.usesMLXRuntime else {
-            modelContainer = nil
-            lastStatus = .failed(reason: "Selected backend does not use MLX.")
-            return lastStatus
+        #if targetEnvironment(simulator)
+        return .failed(reason: "Run the MLX model on a physical device.")
+        #else
+        let selection = WordcraftModelPreferences.selectedMLXModel
+        let configuration = configuration(for: selection)
+        if preparedModelSelection == selection, modelContainer != nil {
+            return .ready(modelDescription: configuration.name)
         }
 
-        let modelSelection = WordcraftModelPreferences.selectedMLXModel
-        let configuration = configuration(for: backend, selection: modelSelection)
-        guard let configuration else {
-            modelContainer = nil
-            preparedBackend = nil
-            preparedModelSelection = nil
-            lastStatus = .notConfigured
-            return lastStatus
-        }
-
-        guard preparedBackend != backend || preparedModelSelection != modelSelection || modelContainer == nil else {
-            return lastStatus
-        }
-
+        guard !isPreparing else { return .failed(reason: "A model is already loading.") }
+        isPreparing = true
+        defer { isPreparing = false }
+        modelContainer = nil
+        preparedModelSelection = nil
         do {
-            modelContainer = try await loadContainer(
-                for: configuration,
-                selection: modelSelection,
-                progressHandler: progressHandler
-            )
-            preparedBackend = backend
-            preparedModelSelection = modelSelection
-            lastStatus = .ready(modelDescription: configuration.name)
-        } catch {
-            modelContainer = nil
-            preparedBackend = nil
-            preparedModelSelection = nil
-            lastStatus = .failed(reason: error.localizedDescription)
-        }
+            guard let group = WordcraftModelPreferences.appGroupIdentifier,
+                  let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group) else {
+                return .failed(reason: "Check the shared App Group in Signing & Capabilities.")
+            }
 
-        return lastStatus
+            let cache = HubCache(cacheDirectory: directory.appending(path: "Library/Caches/models"))
+            let downloader = ModelDownloader(client: HubClient(cache: cache), localFilesOnly: !allowDownload)
+            let container = try await MLXLMCommon.loadModelContainer(
+                from: downloader,
+                using: #huggingFaceTokenizerLoader(),
+                configuration: configuration,
+                progressHandler: { progress in progressHandler?(progress) }
+            )
+            try Task.checkCancellation()
+            preparedModelSelection = selection
+            modelContainer = container
+            return .ready(modelDescription: configuration.name)
+        } catch {
+            return .failed(reason: error.localizedDescription)
+        }
+        #endif
     }
 
-    func generateCandidates(
-        for request: SuggestionRequest,
-        backend: LocalModelBackend
-    ) async throws -> [String]? {
-        let status = await prepareIfNeeded(for: backend)
-        guard case .ready = status else {
-            return nil
-        }
+    func generateCandidates(for request: SuggestionRequest) async throws -> [String] {
+        guard preparedModelSelection == WordcraftModelPreferences.selectedMLXModel,
+              let modelContainer else { return [] }
 
-        guard let modelContainer else {
-            return nil
-        }
-
-        let prompt = """
-        Context before cursor:
-        \(request.context)
-
-        Return exactly \(request.maxSuggestions) likely next single-word candidates.
-        Output comma-separated words only. No punctuation, no numbering, no explanation.
-        """
-
-        let input = try await modelContainer.prepare(input: UserInput(prompt: prompt))
+        let input = try await modelContainer.prepare(input: UserInput(prompt: request.prompt))
         let parameters = GenerateParameters(
             maxTokens: 24,
             temperature: 0,
@@ -103,10 +81,16 @@ actor MLXLocalRuntime {
         let stream = try await modelContainer.generate(input: input, parameters: parameters)
 
         var output = ""
-        for await generation in stream {
+        generationLoop: for await generation in stream {
             switch generation {
             case .chunk(let text):
                 output += text
+                // Stop once enough words are complete; breaking ends the stream and cancels generation.
+                if let last = output.unicodeScalars.last,
+                   SuggestionRequest.candidateSeparators.contains(last),
+                   request.parseCandidates(output).count >= request.maxSuggestions {
+                    break generationLoop
+                }
             case .toolCall:
                 continue
             case .info:
@@ -114,72 +98,42 @@ actor MLXLocalRuntime {
             }
         }
 
-        let candidates = parseCandidates(output, limit: request.maxSuggestions)
-        return candidates.isEmpty ? nil : candidates
+        try Task.checkCancellation()
+
+        return request.parseCandidates(output)
     }
 
-    private func configuration(
-        for backend: LocalModelBackend,
-        selection: MLXModelSelection
-    ) -> ModelConfiguration? {
-        switch backend {
-        case .foundationModels:
-            return nil
-        case .mlxvlm:
-            return nil
-        case .gemma4:
-            if !selection.localDirectoryPath.isEmpty {
-                return ModelConfiguration(
-                    directory: URL(filePath: selection.localDirectoryPath),
-                    extraEOSTokens: ["<turn|>"]
-                )
-            }
-
-            if !selection.repositoryID.isEmpty {
-                return ModelConfiguration(
-                    id: selection.repositoryID,
-                    extraEOSTokens: ["<turn|>"]
-                )
-            }
-
-            return LLMRegistry.gemma4_e2b_it_4bit
-        }
-    }
-
-    private func loadContainer(
-        for configuration: ModelConfiguration,
-        selection: MLXModelSelection,
-        progressHandler: (@Sendable (Progress) -> Void)? = nil
-    ) async throws -> ModelContainer {
+    private func configuration(for selection: MLXModelSelection) -> ModelConfiguration {
         if !selection.localDirectoryPath.isEmpty {
-            return try await LLMModelFactory.shared.loadContainer(
-                from: URL(filePath: selection.localDirectoryPath),
-                using: #huggingFaceTokenizerLoader()
-            )
+            return ModelConfiguration(directory: URL(filePath: selection.localDirectoryPath), extraEOSTokens: ["<turn|>"])
         }
-
-        return try await #huggingFaceLoadModelContainer(configuration: configuration) { progress in
-            progressHandler?(progress)
-            print("Wordcraft MLX download progress \(Int(progress.fractionCompleted * 100))% for \(configuration.name)")
+        if !selection.repositoryID.isEmpty {
+            return ModelConfiguration(id: selection.repositoryID, extraEOSTokens: ["<turn|>"])
         }
-    }
-
-    private func parseCandidates(_ rawOutput: String, limit: Int) -> [String] {
-        rawOutput
-            .components(separatedBy: CharacterSet(charactersIn: ",\n;|"))
-            .map { token in
-                token
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-                    .trimmingCharacters(in: CharacterSet(charactersIn: "\"'[]0123456789.-"))
-            }
-            .filter { candidate in
-                candidate.rangeOfCharacter(from: .whitespacesAndNewlines) == nil
-                    && candidate.rangeOfCharacter(from: .letters) != nil
-            }
-            .reduce(into: [String]()) { partialResult, candidate in
-                guard partialResult.count < limit else { return }
-                guard !partialResult.contains(where: { $0.caseInsensitiveCompare(candidate) == .orderedSame }) else { return }
-                partialResult.append(candidate)
-            }
+        return LLMRegistry.gemma4_e2b_it_4bit
     }
 }
+
+// The host can populate the shared cache. Suggestion requests only read from it.
+private struct ModelDownloader: MLXLMCommon.Downloader {
+    let client: HubClient
+    let localFilesOnly: Bool
+
+    func download(
+        id: String,
+        revision: String?,
+        matching patterns: [String],
+        useLatest: Bool,
+        progressHandler: @Sendable @escaping (Progress) -> Void
+    ) async throws -> URL {
+        guard let repo = Repo.ID(rawValue: id) else { throw URLError(.badURL) }
+        return try await client.downloadSnapshot(
+            of: repo,
+            revision: revision ?? "main",
+            matching: patterns,
+            localFilesOnly: localFilesOnly,
+            progressHandler: { progress in progressHandler(progress) }
+        )
+    }
+}
+#endif

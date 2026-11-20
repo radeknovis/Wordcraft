@@ -36,5 +36,7 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).KeyboardViewController</string>
 	</dict>
+	<key>WordcraftAppGroup</key>
+	<string>group.$(WORDCRAFT_BUNDLE_ID)</string>
 </dict>
 </plist>

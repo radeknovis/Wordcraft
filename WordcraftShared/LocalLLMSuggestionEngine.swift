@@ -4,213 +4,109 @@ import FoundationModels
 #endif
 
 actor LocalLLMSuggestionEngine: SuggestionEngine {
-    private var didLoadModel = false
-    private var isUsingMockFallback = true
-    private var activeBackend: LocalModelBackend = WordcraftModelPreferences.selectedBackend
+    #if canImport(FoundationModels)
+    private var nextFoundationSession: Any?
+    #endif
+
+    #if WORDCRAFT_MLX
     private let mlxRuntime = MLXLocalRuntime()
 
-    #if canImport(FoundationModels)
-    private var foundationModelsSession: Any?
+    func prepareMLXModel(progressHandler: @Sendable @escaping (Progress) -> Void) async -> String {
+        await mlxRuntime.prepareIfNeeded(allowDownload: true, progressHandler: progressHandler).summary
+    }
     #endif
 
     func suggestions(for request: SuggestionRequest) async throws -> SuggestionResult {
-        synchronizeSelectedBackend()
-
-        let start = ContinuousClock.now
-        let loadTime = try await loadModelIfNeeded()
         try Task.checkCancellation()
-
-        let suggestions = try await generateCandidates(for: request)
-        let latency = start.duration(to: .now).milliseconds
-        let metrics = SuggestionMetrics(
-            latencyMilliseconds: latency,
-            contextLength: request.context.count,
-            suggestionCount: suggestions.count,
-            modelLoadMilliseconds: loadTime,
-            backend: activeBackend,
-            usedFallback: isUsingMockFallback
-        )
-        print(metrics.summary)
-
-        return SuggestionResult(suggestions: suggestions, metrics: metrics)
-    }
-
-    func preloadSelectedBackend(
-        progressHandler: (@Sendable (Progress) -> Void)? = nil
-    ) async -> String {
-        synchronizeSelectedBackend()
-
-        do {
-            _ = try await loadModelIfNeeded(progressHandler: progressHandler)
-            if activeBackend.usesMLXRuntime {
-                return await mlxRuntime.prepareIfNeeded(
-                    for: activeBackend,
-                    progressHandler: progressHandler
-                ).summary
-            }
-
-            return "Foundation Models backend checked and ready when available."
-        } catch {
-            return error.localizedDescription
-        }
-    }
-
-    private func synchronizeSelectedBackend() {
-        let selectedBackend = WordcraftModelPreferences.selectedBackend
-        guard selectedBackend != activeBackend else { return }
-
-        activeBackend = selectedBackend
-        didLoadModel = false
-        isUsingMockFallback = true
+        let backend = WordcraftModelPreferences.selectedBackend
         #if canImport(FoundationModels)
-        foundationModelsSession = nil
+        if backend != .foundationModels { nextFoundationSession = nil }
         #endif
-    }
-
-    private func loadModelIfNeeded(
-        progressHandler: (@Sendable (Progress) -> Void)? = nil
-    ) async throws -> Double? {
-        guard !didLoadModel else { return nil }
-
         let start = ContinuousClock.now
-        switch activeBackend {
+        var candidates: [String] = []
+        var loadTime: Double?
+        var modelName: String?
+
+        switch backend {
+        case .sample:
+            break
         case .foundationModels:
             #if canImport(FoundationModels)
-            if #available(iOS 26.0, *) {
-                let model = SystemLanguageModel.default
-                if model.isAvailable {
-                    let session = LanguageModelSession(
-                        model: model,
-                        instructions: "Return only concise next-word candidates for a keyboard. Do not explain."
-                    )
-                    session.prewarm()
-                    foundationModelsSession = session
-                    isUsingMockFallback = false
-                } else {
-                    print("Wordcraft local model unavailable: \(model.availability)")
-                    isUsingMockFallback = true
+            if #available(iOS 26.0, *), SystemLanguageModel.default.isAvailable {
+                // A fresh session keeps each text field's context out of subsequent requests.
+                let instructions = "Return only concise next-word candidates for a keyboard."
+                let session = nextFoundationSession as? LanguageModelSession ?? LanguageModelSession(instructions: instructions)
+                let nextSession = LanguageModelSession(instructions: instructions)
+                nextSession.prewarm()
+                nextFoundationSession = nextSession
+                loadTime = start.duration(to: .now).milliseconds
+                #if compiler(>=6.4)
+                let options = GenerationOptions(samplingMode: .greedy, maximumResponseTokens: 24)
+                #else
+                let options = GenerationOptions(sampling: .greedy, maximumResponseTokens: 24)
+                #endif
+                if let response = try? await session.respond(to: request.prompt, options: options) {
+                    candidates = request.parseCandidates(response.content)
                 }
-            } else {
-                isUsingMockFallback = true
             }
-            #else
-            isUsingMockFallback = true
             #endif
-        case .mlxvlm, .gemma4:
-            let status = await mlxRuntime.prepareIfNeeded(
-                for: activeBackend,
-                progressHandler: progressHandler
-            )
-            print(status.summary)
-            if case .ready = status {
-                isUsingMockFallback = false
-            } else {
-                isUsingMockFallback = true
+        #if WORDCRAFT_MLX
+        case .mlx:
+            let ready = await mlxRuntime.prepareIfNeeded(allowDownload: false)
+            loadTime = start.duration(to: .now).milliseconds
+            if case .ready(let name) = ready {
+                modelName = name
+                candidates = (try? await mlxRuntime.generateCandidates(for: request)) ?? []
             }
-        }
-
-        try Task.checkCancellation()
-        didLoadModel = true
-
-        return start.duration(to: .now).milliseconds
-    }
-
-    private func generateCandidates(for request: SuggestionRequest) async throws -> [String] {
-        if activeBackend.usesMLXRuntime,
-           let suggestions = try await mlxRuntime.generateCandidates(for: request, backend: activeBackend) {
-            isUsingMockFallback = false
-            return suggestions
-        }
-
-        #if canImport(FoundationModels)
-        if #available(iOS 26.0, *),
-           let session = foundationModelsSession as? LanguageModelSession {
-            return try await generateWithFoundationModels(session: session, request: request)
-        }
         #endif
+        }
 
-        try await Task.sleep(for: .milliseconds(isUsingMockFallback ? 35 : 0))
         try Task.checkCancellation()
-
-        let rawOutput = mockModelOutput(for: request.context, backend: activeBackend)
-        return parseCandidates(rawOutput, limit: request.maxSuggestions)
-    }
-
-    #if canImport(FoundationModels)
-    @available(iOS 26.0, *)
-    private func generateWithFoundationModels(
-        session: LanguageModelSession,
-        request: SuggestionRequest
-    ) async throws -> [String] {
-        let prompt = """
-        Context before cursor:
-        \(request.context)
-
-        Return exactly \(request.maxSuggestions) likely next single-word candidates.
-        Output comma-separated words only. No punctuation, no numbering, no explanation.
-        """
-        let options = GenerationOptions(
-            sampling: .greedy,
-            temperature: 0.2,
-            maximumResponseTokens: 24
+        let usedFallback = candidates.isEmpty && backend != .sample
+        if candidates.isEmpty {
+            candidates = request.parseCandidates(mockModelOutput(for: request.context, backend: backend))
+        }
+        let metrics = SuggestionMetrics(
+            latencyMilliseconds: start.duration(to: .now).milliseconds,
+            contextLength: request.context.count,
+            suggestionCount: candidates.count,
+            modelLoadMilliseconds: loadTime,
+            backend: backend,
+            modelName: usedFallback ? nil : modelName,
+            usedFallback: usedFallback
         )
-        let response = try await session.respond(to: prompt, options: options)
-        try Task.checkCancellation()
-        let parsed = parseCandidates(response.content, limit: request.maxSuggestions)
-        return parsed.isEmpty ? parseCandidates(mockModelOutput(for: request.context, backend: activeBackend), limit: request.maxSuggestions) : parsed
+        #if DEBUG
+        print(metrics.summary)
+        #endif
+        return SuggestionResult(suggestions: candidates, metrics: metrics)
     }
-    #endif
 
     private func mockModelOutput(for context: String, backend: LocalModelBackend) -> String {
         let trimmed = context.trimmingCharacters(in: .whitespacesAndNewlines)
         let lowercased = trimmed.lowercased()
 
         if lowercased.hasSuffix("thank") || lowercased.hasSuffix("thanks") {
-            return backend == .gemma4 ? "you, so, much" : "you, again, everyone"
+            #if WORDCRAFT_MLX
+            if backend == .mlx { return "you, so, much" }
+            #endif
+            return "you, again, everyone"
         }
 
         if lowercased.hasSuffix("see") {
-            return backend == .mlxvlm ? "this, that, more" : "you, what, how"
+            return "you, what, how"
         }
 
         if lowercased.hasSuffix("i") {
-            switch backend {
-            case .foundationModels:
-                return "think, can, will"
-            case .mlxvlm:
-                return "see, know, want"
-            case .gemma4:
-                return "need, think, hope"
-            }
+            #if WORDCRAFT_MLX
+            if backend == .mlx { return "need, think, hope" }
+            #endif
+            return "think, can, will"
         }
 
-        switch backend {
-        case .foundationModels:
-            return "the, a, and"
-        case .mlxvlm:
-            return "look, make, take"
-        case .gemma4:
-            return "the, to, for"
-        }
-    }
-
-    private func parseCandidates(_ rawOutput: String, limit: Int) -> [String] {
-        rawOutput
-            .components(separatedBy: CharacterSet(charactersIn: ",\n;|"))
-            .map { token in
-                token
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-                    .trimmingCharacters(in: CharacterSet(charactersIn: "\"'[]0123456789.-"))
-            }
-            .filter { candidate in
-                candidate.rangeOfCharacter(from: .whitespacesAndNewlines) == nil
-                    && candidate.rangeOfCharacter(from: .letters) != nil
-            }
-            .reduce(into: [String]()) { partialResult, candidate in
-                guard partialResult.count < limit else { return }
-                guard !partialResult.contains(where: { $0.caseInsensitiveCompare(candidate) == .orderedSame }) else { return }
-                partialResult.append(candidate)
-            }
+        #if WORDCRAFT_MLX
+        if backend == .mlx { return "the, to, for" }
+        #endif
+        return "the, a, and"
     }
 }
 

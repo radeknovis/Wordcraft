@@ -47,6 +47,16 @@ final class KeyboardViewController: UIInputViewController {
         self.hostingController = hostingController
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardController?.refreshSuggestions()
+    }
+
+    override func selectionDidChange(_ textInput: UITextInput?) {
+        super.selectionDidChange(textInput)
+        keyboardController?.refreshSuggestions()
+    }
+
     override func textDidChange(_ textInput: UITextInput?) {
         super.textDidChange(textInput)
         keyboardController?.refreshSuggestions()

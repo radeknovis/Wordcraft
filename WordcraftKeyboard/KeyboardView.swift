@@ -56,7 +56,7 @@ struct KeyboardView: View {
                 .font(.title3)
                 .frame(maxWidth: .infinity, minHeight: 42)
         }
-        .buttonStyle(KeyButtonStyle(background: .white))
+        .buttonStyle(KeyButtonStyle(background: Color(uiColor: .systemBackground)))
     }
 
     private func controlButton(_ key: KeyboardKey, width: CGFloat? = nil) -> some View {
