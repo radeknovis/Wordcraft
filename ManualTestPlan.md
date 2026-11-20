@@ -1,40 +1,12 @@
-# Wordcraft Manual Test Plan
+# Wordcraft manual checks
 
-## Scope
+Use the standard project and an iPhone simulator for the first four checks. The companion app opens on **Demo**. The [README](README.md) covers keyboard installation and device signing.
 
-- Host app opens and shows enablement instructions.
-- Keyboard extension appears in enabled keyboards.
-- Suggestion bar shows 1-3 local mock next-word suggestions.
-- Tapping a suggestion inserts the word plus trailing space.
-- No network permission or remote analytics are used.
-
-## Test Cases
-
-1. Notes app
-   - Enable Wordcraft in Settings.
-   - Open Notes and switch to Wordcraft.
-   - Type `i ` and confirm suggestions appear.
-   - Tap `think` and confirm insertion.
-
-2. Messages
-   - Open a message draft.
-   - Type with letters, space, delete, and return.
-   - Confirm stale suggestions are replaced while typing.
-
-3. Safari text field
-   - Open a normal search/text field.
-   - Confirm keyboard appears and suggestions insert into the field.
-
-4. Secure password field
-   - Focus a secure password field.
-   - Confirm iOS blocks or replaces the custom keyboard as expected.
-
-5. Keyboard switching
-   - Tap the globe button.
-   - Confirm the next input mode appears.
-
-6. Cold start and memory pressure
-   - Force quit the host app.
-   - Reopen a text field and switch to Wordcraft.
-   - Confirm first suggestion request logs model load time.
-   - Use memory pressure testing in Simulator and confirm the keyboard can relaunch.
+| Check | Steps | Expected result |
+| --- | --- | --- |
+| First run | On a fresh install, tap **Generate suggestions** for the prefilled `i `. Change the text to `thank ` and generate again. | The first result is **think**, **can**, **will**. Changing the text clears it. The next result is **you**, **again**, **everyone**, labeled **Built-in demo**. |
+| Insertion | Enable Wordcraft in Settings. Select **Built-in demo** in the host. In a normal text field, switch to Wordcraft and start from an empty field. Type `i`, pause, then tap space. Tap **think**. | A partial word has no suggestions. After space, three words appear. Tapping inserts `think` and a trailing space. |
+| Editing and switching | Type several letters rapidly, delete, and tap return. Tap the keyboard’s globe, then switch back with the system globe. | Keys affect the focused field, stale results clear, and the keyboard can be selected again. |
+| Other fields | Try a regular web form and a secure password field. | In a regular field that permits third-party keyboards, Wordcraft can insert words. iOS supplies the keyboard for the secure field. |
+| Apple Foundation Models | In the host, choose **Apple Foundation Models**. Generate on a device with the model available and again on a runtime without it. | Each result shows its actual source. Exact words vary for a live model. Fallback results are labeled **Built-in fallback**. |
+| Optional MLX | On a signed physical device, open the MLX build. Prepare a compatible model in the host, then generate. Switch to the keyboard in a separate app and try the prepared selection. | A successful host load identifies the model. The host labels genuine inference with the configured model name. Check the extension separately for responsiveness and memory pressure. |

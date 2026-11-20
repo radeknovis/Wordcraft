@@ -6,19 +6,10 @@ options:
   generateEmptyDirectories: true
 settings:
   base:
+    WORDCRAFT_BUNDLE_ID: com.wordcraft.local
     SWIFT_VERSION: 5.0
     MARKETING_VERSION: 1.0
     CURRENT_PROJECT_VERSION: 1
-packages:
-  mlx-swift-lm:
-    url: https://github.com/ml-explore/mlx-swift-lm.git
-    from: 3.31.3
-  swift-huggingface:
-    url: https://github.com/huggingface/swift-huggingface.git
-    from: 0.9.0
-  swift-transformers:
-    url: https://github.com/huggingface/swift-transformers.git
-    from: 1.3.0
 targets:
   Wordcraft:
     type: application
@@ -26,32 +17,27 @@ targets:
     sources:
       - path: Wordcraft/App
       - path: WordcraftShared
-    resources:
       - path: Wordcraft/Resources/LaunchScreen.storyboard
     info:
       path: Wordcraft/Resources/Info.plist
       properties:
+        WordcraftAppGroup: group.$(WORDCRAFT_BUNDLE_ID)
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
         UILaunchStoryboardName: LaunchScreen
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.wordcraft.local
+        PRODUCT_BUNDLE_IDENTIFIER: $(WORDCRAFT_BUNDLE_ID)
         CODE_SIGN_ENTITLEMENTS: Wordcraft/Resources/Wordcraft.entitlements
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
     dependencies:
       - target: WordcraftKeyboard
         embed: true
-      - package: mlx-swift-lm
-        product: MLXHuggingFace
-      - package: mlx-swift-lm
-        product: MLXLLM
-      - package: mlx-swift-lm
-        product: MLXLMCommon
-      - package: swift-huggingface
-        product: HuggingFace
-      - package: swift-transformers
-        product: Tokenizers
   WordcraftKeyboard:
     type: app-extension
     platform: iOS
@@ -61,6 +47,7 @@ targets:
     info:
       path: WordcraftKeyboard/Resources/Info.plist
       properties:
+        WordcraftAppGroup: group.$(WORDCRAFT_BUNDLE_ID)
         CFBundleDisplayName: Wordcraft Keyboard
         NSExtension:
           NSExtensionAttributes:
@@ -71,20 +58,19 @@ targets:
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.wordcraft.local.keyboard
+        PRODUCT_BUNDLE_IDENTIFIER: $(WORDCRAFT_BUNDLE_ID).keyboard
         CODE_SIGN_ENTITLEMENTS: WordcraftKeyboard/Resources/WordcraftKeyboard.entitlements
         SKIP_INSTALL: true
+  WordcraftUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [WordcraftUITests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: $(WORDCRAFT_BUNDLE_ID).uitests
     dependencies:
-      - package: mlx-swift-lm
-        product: MLXHuggingFace
-      - package: mlx-swift-lm
-        product: MLXLLM
-      - package: mlx-swift-lm
-        product: MLXLMCommon
-      - package: swift-huggingface
-        product: HuggingFace
-      - package: swift-transformers
-        product: Tokenizers
+      - target: Wordcraft
 schemes:
   Wordcraft:
     build:
@@ -93,3 +79,5 @@ schemes:
         WordcraftKeyboard: all
     run:
       config: Debug
+    test:
+      targets: [WordcraftUITests]

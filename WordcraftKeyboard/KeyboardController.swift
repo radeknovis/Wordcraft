@@ -38,6 +38,7 @@ final class KeyboardController {
     }
 
     func insertSuggestion(_ suggestion: String) {
+        guard state.suggestions.contains(suggestion) else { return }
         let prefix = needsLeadingSpace ? " " : ""
         textDocumentProxy?.insertText(prefix + suggestion + " ")
         requestSuggestionsNow()
@@ -51,6 +52,7 @@ final class KeyboardController {
         suggestionTask?.cancel()
         suggestionTask = nil
         state.isLoadingSuggestions = false
+        state.suggestions = []
     }
 
     private var contextBeforeInput: String {
@@ -63,7 +65,7 @@ final class KeyboardController {
     }
 
     private func scheduleSuggestionsAfterTyping() {
-        suggestionTask?.cancel()
+        cancelSuggestions()
         suggestionTask = Task { [weak self] in
             try? await Task.sleep(for: .milliseconds(250))
             await self?.runSuggestionRequest()
@@ -71,13 +73,14 @@ final class KeyboardController {
     }
 
     private func requestSuggestionsNow() {
-        suggestionTask?.cancel()
+        cancelSuggestions()
         suggestionTask = Task { [weak self] in
             await self?.runSuggestionRequest()
         }
     }
 
     private func runSuggestionRequest() async {
+        guard !Task.isCancelled else { return }
         let context = contextBeforeInput
         guard shouldSuggest(for: context) else {
             state.suggestions = []
@@ -92,9 +95,9 @@ final class KeyboardController {
             state.suggestions = Array(result.suggestions.prefix(3))
             state.isLoadingSuggestions = false
         } catch is CancellationError {
-            state.isLoadingSuggestions = false
+            return
         } catch {
-            print("Wordcraft suggestion error: \(error)")
+            guard !Task.isCancelled else { return }
             state.suggestions = []
             state.isLoadingSuggestions = false
         }
@@ -104,11 +107,9 @@ final class KeyboardController {
         let trimmed = context.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return false }
 
-        if let last = context.last, last.isWhitespace || Self.isPunctuation(last) {
-            return true
-        }
-
-        return true
+        // Prompt asks for the next word, so only run once the current word is finished.
+        guard let last = context.last else { return false }
+        return last.isWhitespace || Self.isPunctuation(last)
     }
 
     private static let punctuationCharacters = CharacterSet(charactersIn: ".,!?;:")

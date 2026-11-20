@@ -12,38 +12,37 @@
 		1750678A73384D835C2CFA1A /* SuggestionMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013017E06BBB2F7336B83BDB /* SuggestionMetrics.swift */; };
 		1C92D33C146326F872FB10DD /* SuggestionBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E096A967888F9A63367243A /* SuggestionBarView.swift */; };
 		22AAF0EBC12AD9673A6F6616 /* SuggestionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA25E0581AEC2AB8E2D9688 /* SuggestionResult.swift */; };
-		33D894DC0D70C325BC9A7402 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 38E236561A7FDB59750C6144 /* MLXLLM */; };
-		3DBD59C7F27CAE1F7E459C38 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BDC78F76A3DD4792D61E28AE /* MLXLMCommon */; };
 		442502C73F4BDB1709B054E1 /* MLXLocalRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8B8865EF9F71934BE2875D /* MLXLocalRuntime.swift */; };
-		53EF685684F3943B14F88319 /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = CD45B40D7DBBC441B60BC52F /* HuggingFace */; };
-		5789961B5A3AA442D2561B47 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 1314DC72180C894D12A24D26 /* MLXLLM */; };
+		4953167810EC2DC8D869F895 /* DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81529DCCC40D3B9FAFCEC387 /* DemoTests.swift */; };
 		5C9B444218B2CFF2D96BB59D /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C698A20809AFDAB8FCD53 /* DemoView.swift */; };
-		61854308DCBC76FF2C43FC85 /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = A9845C9449B2FE06C2BCA815 /* MLXHuggingFace */; };
 		62A22D3D808DEC2FAC6CE5D6 /* LocalLLMSuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */; };
 		66047B793B2779BB484CEB62 /* WordcraftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1197214E792DB7E71A67C /* WordcraftApp.swift */; };
-		6E7B9BC547614EDED149B80A /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 01DFF4DBA37141A500E794A7 /* Tokenizers */; };
 		6FFC90EDEC036098E216DA7D /* WordcraftKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		79A20BFB2F77FEA484D5A597 /* SuggestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */; };
 		8143699FDC04057C09F7F6E9 /* SuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3817DF383C6801906F22E /* SuggestionEngine.swift */; };
 		885D1B15198214E44C56650B /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51E256E5A4E48B559F3AEB /* KeyboardLayout.swift */; };
 		8DF882233865CE4BCCFA7C8A /* KeyboardSetupInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD8C2BD02474FE6FBC5E1D1 /* KeyboardSetupInstructionsView.swift */; };
 		B1B48A75A7389C5619AEEA64 /* LocalLLMSuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */; };
-		B73DB2D15C529D19152734FD /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 9934B1FC857BC09FB39FCBB4 /* HuggingFace */; };
 		BB6A32CEB6E5C3C9B4B0C5DA /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D138F84ADFF0130F3AC322CA /* KeyboardView.swift */; };
-		C15D32B7CDB8BA9B6F7099DD /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 42FE07B5772E1A4AD79AD5C8 /* MLXHuggingFace */; };
-		C4BD2B5FFB6C969DF9F2B100 /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 00D2538E8165ABB846248F7B /* Tokenizers */; };
 		CCFEF967C54F03D56D58D8FB /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BC1C05FE6B5659FB8E164 /* KeyboardController.swift */; };
 		D1281E0D604C571974AF6AAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700AB63FB87447DE2C6CC04E /* ContentView.swift */; };
 		D7B16E7A378AE0BF274F1BC4 /* KeyboardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1C814113121941CA5D68C3 /* KeyboardState.swift */; };
 		D854BB0E768B34851E623E98 /* SuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3817DF383C6801906F22E /* SuggestionEngine.swift */; };
 		E310F20265A65795BEB70391 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A374D17B90C9A6BC7408A /* KeyboardViewController.swift */; };
 		E5BDEB9AAEC968D05F8F0E21 /* SuggestionMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013017E06BBB2F7336B83BDB /* SuggestionMetrics.swift */; };
+		EFCEB95F7EDD1F50705D3F22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DA43146A7E3F6A29D68A03 /* LaunchScreen.storyboard */; };
 		F0D2A3ECEB4AFDCC74F4E63C /* SuggestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */; };
 		FADE8880AE554BBF57F9F1B8 /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE93A59FA6247EE6A3C4D28 /* KeyboardKey.swift */; };
-		FC9AE4916478D547FBF71876 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5E7669DDD181C462227532 /* MLXLMCommon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A271807783A5085BC41E78D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 189AFFFA70387A93A593731B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37EEAA9A0C19D1BFBEF2153D;
+			remoteInfo = Wordcraft;
+		};
 		E33194944D67D7C7185ADF7D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 189AFFFA70387A93A593731B /* Project object */;
@@ -73,6 +72,8 @@
 		1EE93A59FA6247EE6A3C4D28 /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
 		2044CAA21CB5AAB50D397FAB /* Wordcraft.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Wordcraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC4D245F36DF2E85B4B7383 /* SuggestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionRequest.swift; sourceTree = "<group>"; };
+		3E79FCACB7D598138343E60E /* WordcraftUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WordcraftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		45DA43146A7E3F6A29D68A03 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C8BC1C05FE6B5659FB8E164 /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
 		4D0A374D17B90C9A6BC7408A /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		5A51E256E5A4E48B559F3AEB /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		6CD1197214E792DB7E71A67C /* WordcraftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordcraftApp.swift; sourceTree = "<group>"; };
 		700AB63FB87447DE2C6CC04E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7BA25E0581AEC2AB8E2D9688 /* SuggestionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionResult.swift; sourceTree = "<group>"; };
+		81529DCCC40D3B9FAFCEC387 /* DemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTests.swift; sourceTree = "<group>"; };
 		969DD917337E8CDAA6EECEDD /* LocalLLMSuggestionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLLMSuggestionEngine.swift; sourceTree = "<group>"; };
 		9D9C698A20809AFDAB8FCD53 /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
 		AB8B8865EF9F71934BE2875D /* MLXLocalRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXLocalRuntime.swift; sourceTree = "<group>"; };
@@ -91,34 +93,16 @@
 		F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WordcraftKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		5958364229D5AF34D3FAAE08 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				61854308DCBC76FF2C43FC85 /* MLXHuggingFace in Frameworks */,
-				5789961B5A3AA442D2561B47 /* MLXLLM in Frameworks */,
-				3DBD59C7F27CAE1F7E459C38 /* MLXLMCommon in Frameworks */,
-				53EF685684F3943B14F88319 /* HuggingFace in Frameworks */,
-				6E7B9BC547614EDED149B80A /* Tokenizers in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8A2CD91DA35AAFAE097388B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C15D32B7CDB8BA9B6F7099DD /* MLXHuggingFace in Frameworks */,
-				33D894DC0D70C325BC9A7402 /* MLXLLM in Frameworks */,
-				FC9AE4916478D547FBF71876 /* MLXLMCommon in Frameworks */,
-				B73DB2D15C529D19152734FD /* HuggingFace in Frameworks */,
-				C4BD2B5FFB6C969DF9F2B100 /* Tokenizers in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
+		39A7C182EEB544A053284D4E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				45DA43146A7E3F6A29D68A03 /* LaunchScreen.storyboard */,
+			);
+			name = Resources;
+			path = Wordcraft/Resources;
+			sourceTree = "<group>";
+		};
 		6E2B2B10C5A2EEAC1C766D71 /* WordcraftShared */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,12 +116,22 @@
 			path = WordcraftShared;
 			sourceTree = "<group>";
 		};
+		6EB7C4C9AD24803DD556A625 /* WordcraftUITests */ = {
+			isa = PBXGroup;
+			children = (
+				81529DCCC40D3B9FAFCEC387 /* DemoTests.swift */,
+			);
+			path = WordcraftUITests;
+			sourceTree = "<group>";
+		};
 		996053993121B531E6E588B3 = {
 			isa = PBXGroup;
 			children = (
 				D2F8800C8EE52D68BF0F4E57 /* App */,
+				39A7C182EEB544A053284D4E /* Resources */,
 				FE2C4F315ADFB755B4BA39BA /* WordcraftKeyboard */,
 				6E2B2B10C5A2EEAC1C766D71 /* WordcraftShared */,
+				6EB7C4C9AD24803DD556A625 /* WordcraftUITests */,
 				E55F296C295A8D1D5F786B72 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -168,6 +162,7 @@
 			children = (
 				2044CAA21CB5AAB50D397FAB /* Wordcraft.app */,
 				F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */,
+				3E79FCACB7D598138343E60E /* WordcraftUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,7 +190,6 @@
 			buildConfigurationList = B4A83EF96573D5990306CD1C /* Build configuration list for PBXNativeTarget "WordcraftKeyboard" */;
 			buildPhases = (
 				23870859F98D28F21F12EF47 /* Sources */,
-				C8A2CD91DA35AAFAE097388B /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,11 +197,6 @@
 			);
 			name = WordcraftKeyboard;
 			packageProductDependencies = (
-				42FE07B5772E1A4AD79AD5C8 /* MLXHuggingFace */,
-				38E236561A7FDB59750C6144 /* MLXLLM */,
-				0A5E7669DDD181C462227532 /* MLXLMCommon */,
-				9934B1FC857BC09FB39FCBB4 /* HuggingFace */,
-				00D2538E8165ABB846248F7B /* Tokenizers */,
 			);
 			productName = WordcraftKeyboard;
 			productReference = F4A3E06037A9AD919F943C9A /* WordcraftKeyboard.appex */;
@@ -218,7 +207,7 @@
 			buildConfigurationList = A5013BD555A4FFC4354A4F3D /* Build configuration list for PBXNativeTarget "Wordcraft" */;
 			buildPhases = (
 				4003A066BA515589C27F470C /* Sources */,
-				5958364229D5AF34D3FAAE08 /* Frameworks */,
+				D1C5B6F49495DC68640F79D2 /* Resources */,
 				8C3D1A9CE4267009D649E420 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -228,15 +217,28 @@
 			);
 			name = Wordcraft;
 			packageProductDependencies = (
-				A9845C9449B2FE06C2BCA815 /* MLXHuggingFace */,
-				1314DC72180C894D12A24D26 /* MLXLLM */,
-				BDC78F76A3DD4792D61E28AE /* MLXLMCommon */,
-				CD45B40D7DBBC441B60BC52F /* HuggingFace */,
-				01DFF4DBA37141A500E794A7 /* Tokenizers */,
 			);
 			productName = Wordcraft;
 			productReference = 2044CAA21CB5AAB50D397FAB /* Wordcraft.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8DD9F864E078994C74F59924 /* WordcraftUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5562B30C3F210CBD4B83B66F /* Build configuration list for PBXNativeTarget "WordcraftUITests" */;
+			buildPhases = (
+				E8338B1518ED3D7A68A1716B /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A540EE51C9AE139919427B78 /* PBXTargetDependency */,
+			);
+			name = WordcraftUITests;
+			packageProductDependencies = (
+			);
+			productName = WordcraftUITests;
+			productReference = 3E79FCACB7D598138343E60E /* WordcraftUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -247,6 +249,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					8DD9F864E078994C74F59924 = {
+						TestTargetID = 37EEAA9A0C19D1BFBEF2153D;
+					};
 				};
 			};
 			buildConfigurationList = 3E44E7CB323B858E97071156 /* Build configuration list for PBXProject "Wordcraft" */;
@@ -258,11 +263,6 @@
 			);
 			mainGroup = 996053993121B531E6E588B3;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
-				FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
-				5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E55F296C295A8D1D5F786B72 /* Products */;
 			projectDirPath = "";
@@ -270,9 +270,21 @@
 			targets = (
 				37EEAA9A0C19D1BFBEF2153D /* Wordcraft */,
 				1BE514784B9952304E8AC874 /* WordcraftKeyboard */,
+				8DD9F864E078994C74F59924 /* WordcraftUITests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D1C5B6F49495DC68640F79D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFCEB95F7EDD1F50705D3F22 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		23870859F98D28F21F12EF47 /* Sources */ = {
@@ -312,6 +324,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E8338B1518ED3D7A68A1716B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4953167810EC2DC8D869F895 /* DemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -319,6 +339,11 @@
 			isa = PBXTargetDependency;
 			target = 1BE514784B9952304E8AC874 /* WordcraftKeyboard */;
 			targetProxy = E33194944D67D7C7185ADF7D /* PBXContainerItemProxy */;
+		};
+		A540EE51C9AE139919427B78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37EEAA9A0C19D1BFBEF2153D /* Wordcraft */;
+			targetProxy = A271807783A5085BC41E78D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -334,7 +359,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(WORDCRAFT_BUNDLE_ID)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -352,7 +377,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(WORDCRAFT_BUNDLE_ID)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -421,6 +446,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				WORDCRAFT_BUNDLE_ID = com.wordcraft.local;
 			};
 			name = Debug;
 		};
@@ -434,7 +460,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local.keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(WORDCRAFT_BUNDLE_ID).keyboard";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -496,8 +522,43 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				WORDCRAFT_BUNDLE_ID = com.wordcraft.local;
 			};
 			name = Release;
+		};
+		CC5ECFE3B28880BBD4E7B082 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(WORDCRAFT_BUNDLE_ID).uitests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Wordcraft;
+			};
+			name = Release;
+		};
+		F434CF2B0A1AFFED4EC18C9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(WORDCRAFT_BUNDLE_ID).uitests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Wordcraft;
+			};
+			name = Debug;
 		};
 		F659487C4AEFC0A1E4715272 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -509,7 +570,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordcraft.local.keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(WORDCRAFT_BUNDLE_ID).keyboard";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -524,6 +585,15 @@
 			buildConfigurations = (
 				72AE6FEBF428F8AE1EF490DE /* Debug */,
 				9DF858A7D4DD14846840728A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5562B30C3F210CBD4B83B66F /* Build configuration list for PBXNativeTarget "WordcraftUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F434CF2B0A1AFFED4EC18C9B /* Debug */,
+				CC5ECFE3B28880BBD4E7B082 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -547,86 +617,6 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.31.3;
-			};
-		};
-		5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/huggingface/swift-transformers.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.0;
-			};
-		};
-		FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/huggingface/swift-huggingface.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		00D2538E8165ABB846248F7B /* Tokenizers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */;
-			productName = Tokenizers;
-		};
-		01DFF4DBA37141A500E794A7 /* Tokenizers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C7F57AD3D7B9903FDAE449E /* XCRemoteSwiftPackageReference "swift-transformers" */;
-			productName = Tokenizers;
-		};
-		0A5E7669DDD181C462227532 /* MLXLMCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXLMCommon;
-		};
-		1314DC72180C894D12A24D26 /* MLXLLM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXLLM;
-		};
-		38E236561A7FDB59750C6144 /* MLXLLM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXLLM;
-		};
-		42FE07B5772E1A4AD79AD5C8 /* MLXHuggingFace */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXHuggingFace;
-		};
-		9934B1FC857BC09FB39FCBB4 /* HuggingFace */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
-			productName = HuggingFace;
-		};
-		A9845C9449B2FE06C2BCA815 /* MLXHuggingFace */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXHuggingFace;
-		};
-		BDC78F76A3DD4792D61E28AE /* MLXLMCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4841691E4149A2634FB75850 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXLMCommon;
-		};
-		CD45B40D7DBBC441B60BC52F /* HuggingFace */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF9DD8D689E4141ACE807638 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
-			productName = HuggingFace;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 189AFFFA70387A93A593731B /* Project object */;
 }

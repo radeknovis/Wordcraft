@@ -5,9 +5,9 @@ struct KeyboardSetupInstructionsView: View {
         NavigationStack {
             List {
                 Section {
-                    Label("Local only. No network.", systemImage: "lock.shield")
+                    Label("Your typing stays on this device.", systemImage: "lock.shield")
                     Label("Next-word suggestions run on device.", systemImage: "text.word.spacing")
-                    Label("Open Access is off for this POC.", systemImage: "wifi.slash")
+                    Label("The keyboard runs with Full Access off.", systemImage: "wifi.slash")
                 } header: {
                     Text("Privacy")
                 }
@@ -17,7 +17,7 @@ struct KeyboardSetupInstructionsView: View {
                     InstructionRow(number: 2, text: "Go to General > Keyboard > Keyboards.")
                     InstructionRow(number: 3, text: "Tap Add New Keyboard.")
                     InstructionRow(number: 4, text: "Choose Wordcraft.")
-                    InstructionRow(number: 5, text: "Switch keyboards from any text field.")
+                    InstructionRow(number: 5, text: "In a normal text field, hold the globe and choose Wordcraft.")
                 } header: {
                     Text("Enable Wordcraft Keyboard")
                 }
